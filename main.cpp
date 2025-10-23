@@ -1,6 +1,7 @@
-#include <iostream>
+#include <wordlecpp/WordleCPP.hpp>
 
 int main(int argc, char **argv) {
-    std::cout << "Hello, world!" << std::endl;
+    WordleCPP::WordsStorage::setup();
+
     return 0;
 }
