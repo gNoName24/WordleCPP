@@ -26,7 +26,7 @@ find_package(uuid_v4)
 if(uuid_v4_FOUND)
     project_message(STATUS "uuid_v4 library found")
 else()
-    project_message(ERROR "uuid_v4 library NOT found. https://github.com/crashoz/uuid_v4?tab=readme-ov-file#cmake")
+    project_message(FATAL_ERROR "uuid_v4 library NOT found. https://github.com/crashoz/uuid_v4?tab=readme-ov-file#cmake")
 endif()
 
 project_message(STATUS "Collecting all .cpp files into wordlecpp_sources")
