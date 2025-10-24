@@ -6,20 +6,36 @@
 #include <vector>
 #include <unordered_map>
 #include <filesystem>
+#include <random>
+
+#include <uuid_v4/uuid_v4.h> // https://github.com/crashoz/uuid_v4
 
 namespace WordleCPP {
-    namespace WordsStorage {
-        extern std::string target_language;
-        extern std::filesystem::path target_path;
+    extern UUIDv4::UUIDGenerator<std::mt19937_64> uuid_generator;
 
-        extern std::unordered_map<std::string, std::vector<std::string>> list;
-        extern std::vector<std::string> current_list;
-        void list_load(std::filesystem::path& path, std::string& target_language);
+    // Хранилище слов для ОДНОЙ игровой сессии
+    struct WordsStorage {
+        const std::string language;
 
-        void target_language_change(std::string new_target_language);
+        WordsStorage(const std::string& language):
+            language(language)
+        {}
+    };
 
-        void setup();
-    }
+    // Данные игрока
+    struct Player {
+        UUIDv4::UUID uuid4 = uuid_generator.getUUID();
+        std::string nickname;
+
+        Player() {
+
+        }
+    };
+
+    // Игровая сессия
+    class GameSession {
+
+    };
 };
 
 #endif // WORDLECPP_HPP
