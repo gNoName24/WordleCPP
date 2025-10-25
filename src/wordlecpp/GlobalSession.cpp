@@ -9,9 +9,9 @@ namespace WordleCPP {
         {"opened_profile", "none"},
         {"profiles", {}} // Хранилище профилей
     };
+    json& gs_config_profiles = gs_config["profiles"];
     void gs_config_init() {
         if(!std::filesystem::exists(pth_config)) {
-            std::filesystem::create_directories(pth_config.parent_path());
             gs_config_save();
         }
         gs_config.clear();

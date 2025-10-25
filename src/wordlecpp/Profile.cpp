@@ -30,17 +30,16 @@ namespace WordleCPP {
     // Session Lock
     void Profile::session_lock() {
         if(session_lock_check()) {
-            throw std::runtime_error("Сессия " + uuids::to_string(uuid) + " уже существует");
+            throw std::runtime_error("Сессия " + uuidstr + " уже существует");
         }
-        std::filesystem::create_directories(pth_sessionlock);
-        std::ofstream sessionlock(pth_sessionlock / uuids::to_string(uuid));
+        std::ofstream sessionlock(pth_sessionlock / uuidstr);
         sessionlock.close();
     }
     void Profile::session_unlock() {
         if(!session_lock_check()) return;
-        std::filesystem::remove(pth_sessionlock / uuids::to_string(uuid));
+        std::filesystem::remove(pth_sessionlock / uuidstr);
     }
     bool Profile::session_lock_check() {
-        return std::filesystem::exists(pth_sessionlock / uuids::to_string(uuid));
+        return std::filesystem::exists(pth_sessionlock / uuidstr);
     }
 };

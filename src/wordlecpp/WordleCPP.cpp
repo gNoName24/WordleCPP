@@ -17,13 +17,9 @@ namespace WordleCPP {
         profile_open(gs_config["opened_profile"]);
     }
     void profile_open(const std::string& uuid) {
-        std::cout << "1" << std::endl;
         Profile profile(uuid);
-        std::cout << "2" << std::endl;
         gs_profile = std::make_unique<Profile>(std::move(profile));
-        std::cout << "3" << std::endl;
         gs_profile->initby_uuid();
-        std::cout << "end" << std::endl; // Почему крашится?
     }
 
     void profile_open() { // NOTE: Переделать под ncurses
@@ -44,14 +40,14 @@ namespace WordleCPP {
 
         gs_config_init();
 
-        if(!gs_config["profiles"].contains(regbuf_nickname)) {
+        if(!gs_config_profiles.contains(regbuf_nickname)) {
             throw std::runtime_error("Профиль " + regbuf_nickname + " не существует");
         }
 
-        gs_config["opened_profile"] = gs_config["profiles"][regbuf_nickname];
+        gs_config["opened_profile"] = gs_config_profiles[regbuf_nickname];
         gs_config_save();
 
-        profile_open(gs_config["profiles"][regbuf_nickname]);
+        profile_open(gs_config_profiles[regbuf_nickname]);
     }
     void profile_register() {
         std::string regbuf_nickname;
@@ -60,7 +56,7 @@ namespace WordleCPP {
 
         gs_config_init();
 
-        if(gs_config["profiles"].contains(regbuf_nickname)) {
+        if(gs_config_profiles.contains(regbuf_nickname)) {
             throw std::runtime_error("Профиль " + regbuf_nickname + " уже есть");
         }
 
@@ -68,12 +64,20 @@ namespace WordleCPP {
         Profile newprofile(uuids::to_string(newuuid));
         newprofile.nickname = regbuf_nickname;
         newprofile.save();
+        newprofile.session_unlock();
 
-        gs_config["profiles"][regbuf_nickname] = uuids::to_string(newuuid);
-        gs_config["opened_profile"] = uuids::to_string(newuuid);
+        gs_config_profiles[regbuf_nickname] = newprofile.uuidstr;
+        gs_config["opened_profile"] = newprofile.uuidstr;
 
         gs_config_save();
 
         profile_open(gs_config["opened_profile"]);
+    }
+
+    void shutdown() {
+        if(gs_profile) {
+            gs_profile->session_unlock();
+        }
+        gs_profile.reset();
     }
 };
