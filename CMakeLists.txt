@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(FetchContent)
+include(CheckCXXCompilerFlag)
 
 function(project_message msg_type msg_text)
     message(${msg_type} "[WordleCPP] ${msg_text}")
@@ -20,14 +21,14 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(nlohmann_json)
 
-project_message(STATUS "Library: uuid_v4 (crashoz)")
-# https://github.com/crashoz/uuid_v4
-find_package(uuid_v4)
-if(uuid_v4_FOUND)
-    project_message(STATUS "uuid_v4 library found")
-else()
-    project_message(FATAL_ERROR "uuid_v4 library NOT found. https://github.com/crashoz/uuid_v4?tab=readme-ov-file#cmake")
-endif()
+project_message(STATUS "Library: stduuid (mariusbancila)")
+# https://github.com/mariusbancila/stduuid
+FetchContent_Declare(
+    stduuid
+    GIT_REPOSITORY https://github.com/mariusbancila/stduuid.git
+    GIT_TAG        3afe7193facd5d674de709fccc44d5055e144d7a # v1.2.3
+)
+FetchContent_MakeAvailable(stduuid)
 
 project_message(STATUS "Collecting all .cpp files into wordlecpp_sources")
 file(GLOB_RECURSE wordlecpp_sources "src/wordlecpp/*.cpp")
@@ -39,7 +40,7 @@ add_executable(wordlecpp
 target_include_directories(wordlecpp PRIVATE include)
 target_link_libraries(wordlecpp PRIVATE
     nlohmann_json::nlohmann_json
-    uuid_v4::uuid_v4
+    stduuid
 )
 
 install(TARGETS wordlecpp RUNTIME DESTINATION bin)

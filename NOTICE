@@ -4,9 +4,9 @@ This project uses the following open-source library, included in CMakeLists.txt 
     Lohmann, N. (2025). JSON for Modern C++ (Version 3.12.0) [Computer software].
     -> https://github.com/nlohmann <-
     Licensed under the MIT License.
-2. uuid_v4 - crashoz
-    Copyright (c) 2018 Xavier "Crashoz" Launey
-    -> https://github.com/crashoz/uuid_v4 <-
+2. stduuid - mariusbancila
+    Copyright (c) 2017
+    -> https://github.com/mariusbancila/stduuid <-
     Licensed under the MIT License.
 
 The project was developed using KDevelop.
