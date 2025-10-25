@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(FetchContent)
 include(CheckCXXCompilerFlag)
+set(FETCHCONTENT_QUIET FALSE)
 
 function(project_message msg_type msg_text)
     message(${msg_type} "[WordleCPP] ${msg_text}")
@@ -13,10 +14,13 @@ endfunction()
 
 project_message(STATUS "Library: JSON (nlohmann)")
 # https://github.com/nlohmann/json
+# Оригинальный репозиторий весит под 200мб, который каждый раз скачивается довольно долго
+# Так что я создал форк репозитория и очистил его. Если он вдруг недоступен, смените на оригинальный репозиторий
+#
 FetchContent_Declare(
     nlohmann_json
-    GIT_REPOSITORY https://github.com/nlohmann/json.git
-    GIT_TAG        55f93686c01528224f448c19128836e7df245f72 # v3.12.0
+    GIT_REPOSITORY https://github.com/gNoName24/json-clean.git
+    GIT_TAG        v3.12.0c
     GIT_SHALLOW    TRUE
 )
 FetchContent_MakeAvailable(nlohmann_json)

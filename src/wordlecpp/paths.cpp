@@ -1,4 +1,5 @@
-#include <wordlecpp/WordleCPP.hpp>
+// src/wordlecpp/paths.cpp
+#include <wordlecpp/paths.hpp>
 
 namespace WordleCPP {
     std::filesystem::path pth_resources = "resources";

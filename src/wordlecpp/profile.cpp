@@ -1,16 +1,12 @@
-#include <wordlecpp/WordleCPP.hpp>
+// src/wordlecpp/profile.cpp
+#include <wordlecpp/profile.hpp>
+#include <wordlecpp/paths.hpp>
 
+// C++
 #include <fstream>
 
 namespace WordleCPP {
-    void Profile::initby_uuid() {
-        if(!std::filesystem::exists(path)) {
-            throw std::runtime_error("Профиль по указанному uuid не существует");
-        }
-    }
-
     void Profile::save() {
-        std::cout << path << std::endl;
         std::ofstream file(path);
         file << dump().dump();
         file.close();

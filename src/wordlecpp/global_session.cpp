@@ -1,5 +1,10 @@
-#include <wordlecpp/WordleCPP.hpp>
+// src/wordlecpp/global_session.cpp
+#include <wordlecpp/global_session.hpp>
+#include <wordlecpp/information.hpp>
+#include <wordlecpp/paths.hpp>
+#include <wordlecpp/profile.hpp>
 
+// C++
 #include <fstream>
 
 namespace WordleCPP {
