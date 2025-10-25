@@ -16,7 +16,9 @@
 using json = nlohmann::json;
 
 namespace WordleCPP {
-    //extern UUIDv4::UUIDGenerator<std::mt19937_64> uuid_generator;
+    extern std::random_device rd;
+    extern std::mt19937 gen;
+    extern uuids::uuid_random_generator uuid_gen;
 
     // 0.1.0
     extern uint8_t version_major;
@@ -56,6 +58,11 @@ namespace WordleCPP {
 
         void initby_uuid();
 
+        void save();
+
+        void parse(const json& data);
+        json dump();
+
         // Session Lock
         void session_lock();
         void session_unlock();
@@ -63,15 +70,20 @@ namespace WordleCPP {
 
         Profile(const std::string& uuid) {
             this->uuid = uuids::uuid::from_string(uuid).value();
-            initby_uuid();
+            path = pth_profiles / uuids::to_string(this->uuid);
 
             session_lock();
         }
         ~Profile() {
-            session_unlock();
+            //session_unlock();
         }
     };
     void profile_init();
+    void profile_open(const std::string& uuid);
+
+    void profile_open();
+    void profile_login();
+    void profile_register();
 
     // Игровая сессия
     class GameSession {

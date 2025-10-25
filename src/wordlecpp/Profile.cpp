@@ -4,14 +4,33 @@
 
 namespace WordleCPP {
     void Profile::initby_uuid() {
-        path = pth_profiles / uuids::to_string(uuid);
+        if(!std::filesystem::exists(path)) {
+            throw std::runtime_error("Профиль по указанному uuid не существует");
+        }
+    }
+
+    void Profile::save() {
+        std::cout << path << std::endl;
+        std::ofstream file(path);
+        file << dump().dump();
+        file.close();
+    }
+
+    void Profile::parse(const json& data) {
+        nickname = data["nickname"];
+    }
+    json Profile::dump() {
+        json buffer;
+
+        buffer["nickname"] = nickname;
+
+        return buffer;
     }
 
     // Session Lock
     void Profile::session_lock() {
         if(session_lock_check()) {
-            std::cout << "Сессия " << uuids::to_string(uuid) << " уже существует" << std::endl;
-            exit(0);
+            throw std::runtime_error("Сессия " + uuids::to_string(uuid) + " уже существует");
         }
         std::filesystem::create_directories(pth_sessionlock);
         std::ofstream sessionlock(pth_sessionlock / uuids::to_string(uuid));

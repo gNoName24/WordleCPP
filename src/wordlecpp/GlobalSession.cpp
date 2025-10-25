@@ -6,7 +6,8 @@ namespace WordleCPP {
     std::unique_ptr<Profile> gs_profile = nullptr;
     json gs_config = { // Стандартный конфиг. Используется только если создается новый config.json. Если config.json есть, то gs_config перезаписывается
         {"version_created", {version_major, version_minor, version_patch}},
-        {"profiles", json::array()} // Хранилище профилей
+        {"opened_profile", "none"},
+        {"profiles", {}} // Хранилище профилей
     };
     void gs_config_init() {
         if(!std::filesystem::exists(pth_config)) {
