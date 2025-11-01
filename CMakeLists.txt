@@ -46,5 +46,8 @@ target_link_libraries(wordlecpp PRIVATE
     nlohmann_json::nlohmann_json
     stduuid
 )
+target_compile_options(wordlecpp PRIVATE "-Os" "-fno-rtti")
+# target_compile_options(wordlecpp PRIVATE "-flto" "-ffunction-sections" "-fdata-sections" "-fno-exceptions" "-Wl,--gc-sections")
+# NOTE: от "-fno-exceptions" у JSON начинается сонный паралич
 
 install(TARGETS wordlecpp RUNTIME DESTINATION bin)

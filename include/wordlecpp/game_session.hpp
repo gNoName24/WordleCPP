@@ -2,8 +2,6 @@
 #ifndef WORDLECPP_GAME_SESSION_HPP
 #define WORDLECPP_GAME_SESSION_HPP
 
-// C++
-
 namespace WordleCPP {
     class GameSession {
 

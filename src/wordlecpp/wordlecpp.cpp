@@ -4,6 +4,11 @@
 #include <wordlecpp/profile.hpp>
 
 namespace WordleCPP {
+    void init() {
+        WordleCPP::pth_check();
+        WordleCPP::Debug::check_availability();
+        WordleCPP::gs_config_init();
+    }
     void shutdown() {
         if(gs_profile) {
             gs_profile->session_unlock();

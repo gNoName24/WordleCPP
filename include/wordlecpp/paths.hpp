@@ -7,6 +7,7 @@
 
 namespace WordleCPP {
     extern std::filesystem::path pth_resources;
+    extern std::filesystem::path pth_debugchecker;
     extern std::filesystem::path pth_config;
     extern std::filesystem::path pth_sessionlock;
     extern std::filesystem::path pth_profiles;

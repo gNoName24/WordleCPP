@@ -26,7 +26,7 @@ namespace WordleCPP {
         json dump();
 
         // session
-        void session_lock();
+        bool session_lock();
         void session_unlock();
         bool session_lock_check();
 

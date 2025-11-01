@@ -15,7 +15,7 @@ namespace WordleCPP {
     extern json gs_config;
     extern json& gs_config_profiles;
     void gs_config_init();
-    void gs_config_save();
+    bool gs_config_save();
 };
 
 #endif // WORDLECPP_GLOBAL_SESSION_HPP

@@ -24,12 +24,13 @@ namespace WordleCPP {
     }
 
     // Session Lock
-    void Profile::session_lock() {
+    bool Profile::session_lock() {
         if(session_lock_check()) {
-            throw std::runtime_error("Сессия " + uuidstr + " уже существует");
+            return false;
         }
         std::ofstream sessionlock(pth_sessionlock / uuidstr);
         sessionlock.close();
+        return true;
     }
     void Profile::session_unlock() {
         if(!session_lock_check()) return;
