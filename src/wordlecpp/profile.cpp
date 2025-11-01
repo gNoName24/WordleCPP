@@ -6,7 +6,20 @@
 #include <fstream>
 
 namespace WordleCPP {
-    void Profile::save() {
+    // ProfileStorage
+    void ProfileStorage::parsing(json& json_storage) {
+
+    }
+    json ProfileStorage::packing() {
+
+    }
+
+    // Profile
+    const ProfileStorage& Profile::get_storage() const {
+        return storage;
+    }
+
+    /*void Profile::save() {
         std::ofstream file(path);
         file << dump().dump();
         file.close();
@@ -38,5 +51,5 @@ namespace WordleCPP {
     }
     bool Profile::session_lock_check() {
         return std::filesystem::exists(pth_sessionlock / uuidstr);
-    }
+    }*/
 };

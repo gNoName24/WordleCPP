@@ -11,7 +11,7 @@ namespace WordleCPP {
     }
     void shutdown() {
         if(gs_profile) {
-            gs_profile->session_unlock();
+            //gs_profile->session_unlock(); // NOTE: Добавить обратно
         }
         gs_profile.reset();
     }

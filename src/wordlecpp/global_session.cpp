@@ -12,14 +12,14 @@ namespace WordleCPP {
     json gs_config = { // Стандартный конфиг. Используется только если создается новый config.json. Если config.json есть, то gs_config перезаписывается
         {"version_created", {version_major, version_minor, version_patch}},
         {"version_updated", {version_major, version_minor, version_patch}},
-        {"opened_profile", "none"},
+        {"opened_profile", "none"}, // Указывается uuid профиля, который нужно мгновенно открыть
         {"profiles", {}} // Хранилище профилей
     };
     json& gs_config_profiles = gs_config["profiles"];
     void gs_config_init() {
         if(!std::filesystem::exists(pth_config)) {
             if(gs_config_save()) {
-                throw std::runtime_error("Не удалось сохранить gs_config");
+                throw std::runtime_error("Не удалось выполнить gs_config_save()");
             }
         }
         gs_config.clear();

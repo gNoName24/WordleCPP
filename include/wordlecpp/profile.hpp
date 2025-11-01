@@ -14,7 +14,31 @@
 using json = nlohmann::json;
 
 namespace WordleCPP {
-    struct Profile {
+    struct ProfileStorage {
+        std::string nickname;
+
+        void parsing(json& json_storage);
+        json packing();
+    };
+    class Profile {
+    public:
+        Profile(const uuids::uuid& uuid):
+        uuid(uuid),
+        uuidstr(uuids::to_string(uuid)),
+        path(pth_profiles / uuidstr)
+        {}
+        const uuids::uuid uuid;
+        const std::string uuidstr; // Вспомогательно
+        const std::filesystem::path path; // Вспомогательно
+
+        // gets
+        const ProfileStorage& get_storage() const;
+
+    private:
+        ProfileStorage storage;
+
+    };
+    /*struct Profile {
         uuids::uuid uuid;
         std::string uuidstr;
         std::string nickname;
@@ -38,7 +62,7 @@ namespace WordleCPP {
             session_lock();
         }
         ~Profile() = default;
-    };
+    };*/
 };
 
 #endif // WORDLECPP_PROFILE_HPP

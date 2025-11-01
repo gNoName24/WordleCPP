@@ -10,7 +10,7 @@
 using json = nlohmann::json;
 
 namespace WordleCPP {
-    struct Profile;
+    class Profile;
     extern std::unique_ptr<Profile> gs_profile;
     extern json gs_config;
     extern json& gs_config_profiles;
