@@ -38,34 +38,30 @@ FetchContent_Declare(
     stduuid
     GIT_REPOSITORY https://github.com/mariusbancila/stduuid.git
     GIT_TAG        3afe7193facd5d674de709fccc44d5055e144d7a # v1.2.3
+    GIT_SHALLOW    TRUE
 )
 FetchContent_MakeAvailable(stduuid)
 
 # ===== notcurses_src ======
-# Дополнительно собирается
 project_message(STATUS "Library: notcurses (dankamongmen)")
 # https://github.com/dankamongmen/notcurses
-set(USE_PANDOC FALSE)
-FetchContent_Declare(
-    notcurses_src
-    GIT_REPOSITORY https://github.com/dankamongmen/notcurses.git
-    GIT_TAG        77672788db0765ab868abafebbaadd8cfe133781 # v3.0.17
+find_path(NOTCURSES_INCLUDE_DIR notcurses/notcurses.h
+    HINTS /usr/include /usr/local/include
 )
-FetchContent_GetProperties(notcurses_src)
-if(NOT notcurses_src_POPULATED)
-    FetchContent_Populate(notcurses_src)
-
-    include(ExternalProject)
-    ExternalProject_Add(
-        notcurses_proj
-        SOURCE_DIR ${notcurses_src_SOURCE_DIR}
-        BINARY_DIR ${notcurses_src_BINARY_DIR}
-        CMAKE_ARGS
-            -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/notcurses_install
-            -DCMAKE_BUILD_TYPE=Release
-            -DUSE_PANDOC=OFF
-    )
+find_library(NOTCURSES_LIB notcurses
+    HINTS /usr/lib /usr/local/lib
+)
+find_library(NOTCURSES_CORE_LIB notcurses-core
+    HINTS /usr/lib /usr/local/lib
+)
+find_library(NOTCURSES_PLUSPLUS_LIB notcurses++
+    HINTS /usr/lib /usr/local/lib
+)
+if(NOT NOTCURSES_INCLUDE_DIR OR NOT NOTCURSES_LIB)
+    project_message(FATAL_ERROR "Notcurses headers or libraries not found.")
 endif()
+project_message(STATUS "Found Notcurses in: ${NOTCURSES_INCLUDE_DIR}")
+project_message(STATUS "Libraries: ${NOTCURSES_LIB}, ${NOTCURSES_CORE_LIB}, ${NOTCURSES_PLUSPLUS_LIB}")
 
 project_message(STATUS "Collecting all .cpp files into wordlecpp_sources")
 file(GLOB_RECURSE wordlecpp_sources "src/wordlecpp/*.cpp")
@@ -74,23 +70,16 @@ add_executable(wordlecpp
     main.cpp
     ${wordlecpp_sources}
 )
-target_include_directories(wordlecpp PRIVATE include)
+target_include_directories(wordlecpp PRIVATE
+    include
+    ${NOTCURSES_INCLUDE_DIR}
+)
 target_link_libraries(wordlecpp PRIVATE
     nlohmann_json::nlohmann_json
     stduuid
-)
-
-# notcurses
-add_dependencies(wordlecpp notcurses_proj)
-target_include_directories(wordlecpp PRIVATE
-    ${CMAKE_BINARY_DIR}/notcurses_install/include
-)
-target_link_directories(wordlecpp PRIVATE
-    ${CMAKE_BINARY_DIR}/notcurses_install/lib
-)
-target_link_libraries(wordlecpp PRIVATE
-    notcurses
-    notcurses-core
+    ${NOTCURSES_LIB}
+    ${NOTCURSES_CORE_LIB}
+    ${NOTCURSES_PLUSPLUS_LIB}
 )
 
 # Для компилятора

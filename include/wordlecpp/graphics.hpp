@@ -16,6 +16,9 @@ namespace WordleCPP {
         };
         extern Scene scene;
 
+        // notcurses
+        extern struct notcurses* nc;
+
         void init();
     };
 };
