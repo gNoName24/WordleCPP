@@ -38,6 +38,9 @@ namespace WordleCPP {
         ProfileStorage storage;
 
     };
+
+    void profile_new(const uuids::uuid& uuid, const std::string& nickname);
+    void profile_login(const uuids::uuid& uuid);
     /*struct Profile {
         uuids::uuid uuid;
         std::string uuidstr;

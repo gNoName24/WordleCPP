@@ -1,6 +1,5 @@
 // src/wordlecpp/profile.cpp
 #include <wordlecpp/profile.hpp>
-#include <wordlecpp/paths.hpp>
 
 // C++
 #include <fstream>

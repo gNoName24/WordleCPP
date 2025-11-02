@@ -8,6 +8,7 @@
 #include <wordlecpp/paths.hpp>
 #include <wordlecpp/global_session.hpp>
 #include <wordlecpp/profile.hpp>
+#include <wordlecpp/graphics.hpp>
 
 namespace WordleCPP {
     void init();

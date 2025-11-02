@@ -8,6 +8,8 @@ namespace WordleCPP {
         WordleCPP::pth_check();
         WordleCPP::Debug::check_availability();
         WordleCPP::gs_config_init();
+
+        WordleCPP::Graphics::init();
     }
     void shutdown() {
         if(gs_profile) {
