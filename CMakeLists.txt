@@ -58,7 +58,7 @@ find_library(NOTCURSES_PLUSPLUS_LIB notcurses++
     HINTS /usr/lib /usr/local/lib
 )
 if(NOT NOTCURSES_INCLUDE_DIR OR NOT NOTCURSES_LIB)
-    project_message(FATAL_ERROR "Notcurses headers or libraries not found.")
+    project_message(FATAL_ERROR "Notcurses headers or libraries not found. You can find out how to install it here: https://github.com/dankamongmen/notcurses/blob/master/INSTALL.md")
 endif()
 project_message(STATUS "Found Notcurses in: ${NOTCURSES_INCLUDE_DIR}")
 project_message(STATUS "Libraries: ${NOTCURSES_LIB}, ${NOTCURSES_CORE_LIB}, ${NOTCURSES_PLUSPLUS_LIB}")

@@ -12,6 +12,7 @@ namespace WordleCPP {
         WordleCPP::Graphics::init();
     }
     void shutdown() {
+        Graphics::shutdown();
         if(gs_profile) {
             //gs_profile->session_unlock(); // NOTE: Добавить обратно
         }
