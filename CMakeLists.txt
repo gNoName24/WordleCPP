@@ -83,7 +83,7 @@ target_link_libraries(wordlecpp PRIVATE
 )
 
 # Для компилятора
-target_compile_options(wordlecpp PRIVATE "-Oz")
+# target_compile_options(wordlecpp PRIVATE "-Oz")
 target_compile_options(wordlecpp PRIVATE "-fno-rtti")
 # target_compile_options(wordlecpp PRIVATE "-flto" "-ffunction-sections" "-fdata-sections" "-fno-exceptions" "-Wl,--gc-sections")
 # NOTE: от "-fno-exceptions" у JSON начинается сонный паралич
